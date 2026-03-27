@@ -1,0 +1,25 @@
+server:
+  port: 8124
+
+spring:
+  application:
+    name: ai-translate
+
+  data:
+    redis:
+      repositories:
+        enabled: false
+  ai:
+    dashscope:
+      api-key: sk-28653b7663bb407d874494b043b06b3b
+      chat:
+        options:
+          model: qwen3-max-2026-01-23
+
+redisson:
+  address: redis://localhost:6379
+  password: 123456
+  database: 0
+  connection-pool-size: 10
+  connection-minimum-idle-size: 5
+  timeout: 5000

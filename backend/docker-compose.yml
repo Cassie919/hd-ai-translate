@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis:7
+    container_name: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - ~/redis-data:/data
+    command: >
+      redis-server
+      --appendonly yes
+      --requirepass 123456
+
+  backend:
+    image: momo-ai-translate:latest
+    container_name: ai-translate-backend
+    restart: always
+    ports:
+      - "8124:8124"
+    depends_on:
+      - redis
+    environment:
+      - SPRING_REDIS_HOST=redis
+      - SPRING_REDIS_PORT=6379
+      - SPRING_REDIS_PASSWORD=123456
+    networks:
+      - app-network
+
+  frontend:
+    image: momo-ai-translate-frontend:latest
+    container_name: hd-ai-translate-frontend
+    restart: always
+    ports:
+      - "3001:80"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

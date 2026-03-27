@@ -1,0 +1,19 @@
+server:
+  port: 8124
+
+spring:
+  application:
+    name: ai-translate
+
+  data:
+    redis:
+      repositories:
+        enabled: false
+
+redisson:
+  address: redis://localhost:6379
+  password: 123456
+  database: 0
+  connection-pool-size: 10
+  connection-minimum-idle-size: 5
+  timeout: 5000
