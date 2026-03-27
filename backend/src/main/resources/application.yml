@@ -1,0 +1,29 @@
+server:
+  port: 8124
+
+spring:
+  application:
+    name: ai-translate
+  active: local
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+  config:
+    import: "optional:nacos:ai-prompts2.yaml"
+  cloud:
+    nacos:
+      config:
+        server-addr: 120.53.234.133:8848
+        config:
+          namespace: public
+          file-extension: yaml
+          group: DEFAULT_GROUP
+          refresh: true
+  ai:
+    dashscope:
+      api-key: ${DASHSCOPE_API_KEY:your-api-key-here}
+      chat:
+        options:
+          model: qwen-flash-character
+
