@@ -90,7 +90,7 @@
     </springProfile>
 
     <!-- 应用程序特定日志级别 -->
-    <logger name="com.hd.ai.translate" level="DEBUG" additivity="false">
+    <logger name="com.hd.ai" level="DEBUG" additivity="false">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="ASYNC_FILE"/>
         <appender-ref ref="ASYNC_ERROR"/>

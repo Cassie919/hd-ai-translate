@@ -4,7 +4,6 @@ server:
 spring:
   application:
     name: ai-translate
-  active: local
   servlet:
     multipart:
       max-file-size: 50MB
@@ -20,10 +19,28 @@ spring:
           file-extension: yaml
           group: DEFAULT_GROUP
           refresh: true
+  datasource:
+    url: ${MYSQL_URL:jdbc:mysql://localhost:3306/ai_translate}
+    username: ${MYSQL_USER:root}
+    password: ${MYSQL_PASSWORD:123456}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
   ai:
     dashscope:
       api-key: ${DASHSCOPE_API_KEY:your-api-key-here}
       chat:
         options:
-          model: qwen-flash-character
+          model: ${DASHSCOPE_MODEL:model}
 
+mai-memo:
+  api:
+    base-url: https://open.maimemo.com/open/api/v1
+
+minio:
+  endpoint: http://127.0.0.1:9000
+  access-key: admin
+  secret-key: 12345678
+  bucket-name: translate-ai

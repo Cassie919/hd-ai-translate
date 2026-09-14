@@ -18,6 +18,8 @@ public class SessionMeta {
     private Integer totalChapters;
     private Integer currentChapterIndex;
     private String status; // PENDING, IN_PROGRESS, COMPLETED
+    /** 源文件在对象存储中的对象名 */
+    private String sourceObjectName;
     private Long createdAt;
     private Long updatedAt;
 }

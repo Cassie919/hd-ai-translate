@@ -40,5 +40,25 @@ public class APP_v1 {
         return result;
     }
 
+    /**
+     * 通用 AI 调用方法，按指定类型反序列化返回结果。
+     * 适用于返回结构非 {@link TranslateItem} 列表的场景，例如词性还原返回字符串列表。
+     *
+     * @param message 提示词
+     * @param typeRef 目标返回类型的类型引用
+     * @param <T>     返回类型
+     * @return AI 返回结果
+     */
+    public <T> T ask(String message, ParameterizedTypeReference<T> typeRef) {
+        log.info("开始 AI 请求");
+        T result = chatClient
+                .prompt()
+                .user(message)
+                .call()
+                .entity(typeRef);
+        log.info("AI 请求完成，返回结果: {}", result);
+        return result;
+    }
+
 
 }

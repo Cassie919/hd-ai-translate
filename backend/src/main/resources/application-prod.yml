@@ -4,16 +4,36 @@ server:
 spring:
   application:
     name: ai-translate
-
-  data:
-    redis:
-      repositories:
-        enabled: false
+  datasource:
+    url: jdbc:mysql://mysql:3306/novel_translate
+    username: root
+    password: ${MYSQL_PASSWORD:Momo123456}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  ai:
+    dashscope:
+      api-key: ${DASHSCOPE_API_KEY:sk-28653b7663bb407d874494b043b06b3b}
+      chat:
+        options:
+          model: deepseek-v4-flash-0731
 
 redisson:
-  address: redis://localhost:6379
-  password: 123456
-  database: 0
-  connection-pool-size: 10
-  connection-minimum-idle-size: 5
-  timeout: 5000
+  singleServerConfig:
+    address: "redis://redis:6379"
+    password: "${REDIS_PASSWORD:123456}"
+    database: 0
+    connectionPoolSize: 8
+    connectionMinimumIdleSize: 2
+
+mai-memo:
+  api:
+    base-url: https://open.maimemo.com/open/api/v1
+
+minio:
+  endpoint: http://minio:9000
+  access-key: ${MINIO_ROOT_USER:admin}
+  secret-key: ${MINIO_ROOT_PASSWORD:12345678}
+  bucket-name: translate-ai

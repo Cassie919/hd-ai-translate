@@ -27,7 +27,7 @@ public class SessionService {
 
     private static final String SESSION_META_PREFIX = "translate:meta:";
     private static final String SESSION_DATA_PREFIX = "translate:data:";
-    private static final long SESSION_TTL_MINUTES = 30;
+    private static final long SESSION_TTL_MINUTES = 7 * 24 * 60; // 7 天
 
     /**
      * 创建新会话
@@ -149,17 +149,7 @@ public class SessionService {
         }
     }
 
-    /**
-     * 设置翻译完成
-     */
-    public void setTranslationCompleted(String sessionId) {
-        SessionMeta meta = getSessionMeta(sessionId);
-        if (meta != null) {
-            meta.setStatus("COMPLETED");
-            updateSessionMeta(sessionId, meta);
-            log.info("翻译完成: {}", sessionId);
-        }
-    }
+
 
     /**
      * 检查会话是否存在

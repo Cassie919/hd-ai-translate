@@ -1,4 +1,4 @@
-package com.hd.ai.translate.dto;
+package com.hd.ai.phraseChunk.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,8 +9,6 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ExportRequest {
-    private String title;
-    private List<TranslateItem> content;
-    private String sessionId;
+public class TextChunkRequest {
+    private List<String> texts;
 }

@@ -37,7 +37,7 @@ public class ChapterService {
             }
 
             fileContent = content.toString();
-            log.info("fileContent: {}", fileContent);
+            //log.info("fileContent: {}", fileContent);
             if (chapters.isEmpty()) {
                 chapters.add("默认章节");
             }
@@ -54,12 +54,22 @@ public class ChapterService {
         if (fileContent == null) {
             return "";
         }
+        return extractChapterContent(fileContent, chapterTitle);
+    }
 
-        if (chapterTitle.equals("默认章节")) {
-            return fileContent.trim();
+    /**
+     * 从给定的全文内容中提取指定章节内容，不依赖成员变量缓存。
+     */
+    public String extractChapterContent(String fullContent, String chapterTitle) {
+        if (fullContent == null) {
+            return "";
         }
 
-        String[] lines = fileContent.split("\n");
+        if ("默认章节".equals(chapterTitle)) {
+            return fullContent.trim();
+        }
+
+        String[] lines = fullContent.split("\n");
         StringBuilder content = new StringBuilder();
         boolean inChapter = false;
 
