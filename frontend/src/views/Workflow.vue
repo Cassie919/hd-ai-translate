@@ -923,11 +923,11 @@ async function handleUser() {
 const CACHE_KEY = 'translate_workflow_state'
 
 /**
- * 保存工作流状态到本地缓存（刷新后可恢复）
+ * 保存工作流状态到会话缓存（同一标签页内刷新可恢复，关闭标签页后清空）
  */
 function saveWorkflowState() {
   try {
-    localStorage.setItem(CACHE_KEY, JSON.stringify({
+    sessionStorage.setItem(CACHE_KEY, JSON.stringify({
       sessionId: sessionId.value,
       documentName: documentName.value,
       chapters: chapters.value,
@@ -944,11 +944,11 @@ function saveWorkflowState() {
 }
 
 /**
- * 从本地缓存恢复工作流状态
+ * 从会话缓存恢复工作流状态
  */
 function loadWorkflowState() {
   try {
-    const cached = localStorage.getItem(CACHE_KEY)
+    const cached = sessionStorage.getItem(CACHE_KEY)
     if (!cached) {
       return
     }
