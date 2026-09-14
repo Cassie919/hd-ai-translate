@@ -1,17 +1,23 @@
-# 使用OpenJDK 21作为基础镜像
-FROM eclipse-temurin:21-jre
+# ===== 构建阶段 =====
+FROM maven:3.9-eclipse-temurin-21 AS builder
+WORKDIR /build
 
-# 设置工作目录
+# 先复制 pom.xml 提前下载依赖，利用 Docker 层缓存
+COPY pom.xml .
+RUN mvn -B dependency:go-offline
+
+# 复制源码并打包
+COPY src ./src
+RUN mvn -B clean package -DskipTests
+
+# ===== 运行阶段 =====
+FROM eclipse-temurin:21-jre
 WORKDIR /app
 
-# 复制Maven构建产物
-COPY target/ai-translate-1.0.0.jar app.jar
+COPY --from=builder /build/target/ai-translate-1.0.0.jar app.jar
 
-# 暴露端口
-EXPOSE 8080
+EXPOSE 8124
 
-# 设置JVM参数
 ENV JAVA_OPTS="-Xms512m -Xmx1024m"
 
-# 启动应用
 ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar /app/app.jar"]
