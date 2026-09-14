@@ -44,8 +44,7 @@ services:
       - app-network
 
   backend:
-    build: .
-    image: ai-translate-backend:latest
+    image: zhouyuan932466/ai-translate-backend:latest
     container_name: ai-translate-backend
     restart: always
     depends_on:
@@ -65,8 +64,7 @@ services:
       - app-network
 
   frontend:
-    build: ../frontend
-    image: ai-translate-frontend:latest
+    image: zhouyuan932466/ai-translate-frontend:latest
     container_name: ai-translate-frontend
     restart: always
     depends_on:
