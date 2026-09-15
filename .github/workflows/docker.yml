@@ -26,6 +26,7 @@ jobs:
           context: ./backend
           file: ./backend/Dockerfile
           push: true
+          platforms: linux/amd64
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/hd-ai-translate-backend:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/hd-ai-translate-backend:${{ github.sha }}
@@ -50,6 +51,7 @@ jobs:
           context: ./frontend
           file: ./frontend/Dockerfile
           push: true
+          platforms: linux/amd64
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/hd-ai-translate-frontend:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/hd-ai-translate-frontend:${{ github.sha }}
